@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Lady J">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#8FA88B">
+<title>Lady J Nail & Beauty</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F7F3EE;
+    --warm-white: #FDFAF7;
+    --sage: #8FA88B;
+    --sage-light: #C4D4C1;
+    --sage-dark: #5C7A58;
+    --blush: #E8D5C9;
+    --taupe: #C4A99A;
+    --charcoal: #2C2C2C;
+    --mid: #6B6B6B;
+    --light: #ABABAB;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  body { font-family:'DM Sans',sans-serif; background:var(--cream); color:var(--charcoal); min-height:100vh; max-width:430px; margin:0 auto; overflow-x:hidden; }
+
+  /* HERO */
+  .hero { background:var(--warm-white); padding:48px 24px 32px; display:flex; flex-direction:column; align-items:center; border-bottom:1px solid #EDE7DF; }
+  .logo-ring { width:76px; height:76px; border-radius:50%; background:var(--sage); display:flex; align-items:center; justify-content:center; margin-bottom:16px; box-shadow:0 6px 24px rgba(143,168,139,.35); }
+  .logo-text { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; fill:white; }
+  h1 { font-family:'Cormorant Garamond',serif; font-size:2rem; font-weight:400; text-align:center; color:var(--charcoal); line-height:1.2; }
+  .hero-sub { font-size:.73rem; color:var(--mid); letter-spacing:.18em; text-transform:uppercase; margin-top:5px; text-align:center; }
+  .hero-pills { display:flex; gap:8px; margin-top:14px; flex-wrap:wrap; justify-content:center; }
+  .pill { display:inline-flex; align-items:center; gap:5px; background:var(--cream); border:1px solid #E0D9D2; border-radius:100px; padding:6px 12px; font-size:.72rem; color:var(--mid); }
+  .pill svg { width:11px; height:11px; flex-shrink:0; }
+  .rating-pill { background:#FFF8EE; border-color:#F5DDA8; color:#9A7525; }
+
+  /* INSTALL BANNER */
+  .install-bar {
+    background: var(--warm-white);
+    border-bottom: 1px solid #EDE7DF;
+    padding: 10px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .install-bar-left { display:flex; align-items:center; gap:10px; }
+  .install-icon { width:36px; height:36px; border-radius:9px; background:var(--sage); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .install-icon svg { width:20px; height:20px; }
+  .install-text { font-size:.78rem; color:var(--charcoal); line-height:1.4; }
+  .install-text strong { display:block; font-weight:500; }
+  .install-text span { color:var(--mid); font-size:.72rem; }
+  .install-btn { background:var(--sage); color:white; border:none; border-radius:8px; padding:8px 14px; font-size:.75rem; font-family:'DM Sans',sans-serif; font-weight:500; cursor:pointer; white-space:nowrap; flex-shrink:0; }
+  .install-close { background:none; border:none; color:var(--light); font-size:1.1rem; cursor:pointer; padding:4px; flex-shrink:0; }
+
+  /* iOS INSTALL TOOLTIP */
+  .ios-tooltip {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0; right: 0;
+    background: var(--warm-white);
+    border-radius: 22px 22px 0 0;
+    padding: 24px 22px 44px;
+    z-index: 9998;
+    box-shadow: 0 -8px 32px rgba(0,0,0,0.12);
+    animation: slideUp .28s ease;
+  }
+  .ios-tooltip.open { display: block; }
+  @keyframes slideUp { from { transform:translateY(100%); } }
+  .tooltip-handle { width:34px; height:4px; background:#DDD; border-radius:2px; margin:0 auto 20px; }
+  .tooltip-title { font-family:'Cormorant Garamond',serif; font-size:1.4rem; font-weight:400; margin-bottom:6px; }
+  .tooltip-sub { font-size:.82rem; color:var(--mid); margin-bottom:22px; line-height:1.5; }
+  .tooltip-step { display:flex; align-items:center; gap:12px; padding:12px 0; border-bottom:1px solid #EDE7DF; }
+  .tooltip-step:last-child { border-bottom:none; }
+  .step-num { width:28px; height:28px; border-radius:50%; background:var(--sage); color:white; font-size:.78rem; font-weight:500; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .step-text { font-size:.85rem; color:var(--charcoal); line-height:1.4; }
+  .step-text span { color:var(--mid); font-size:.78rem; display:block; margin-top:2px; }
+  .tooltip-close { width:100%; background:var(--cream); border:1.5px solid #EDE7DF; border-radius:12px; padding:14px; font-size:.82rem; font-family:'DM Sans',sans-serif; cursor:pointer; margin-top:18px; color:var(--mid); }
+
+  /* ANDROID INSTALL TOOLTIP */
+  .android-tooltip {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0; right: 0;
+    background: var(--warm-white);
+    border-radius: 22px 22px 0 0;
+    padding: 24px 22px 44px;
+    z-index: 9998;
+    box-shadow: 0 -8px 32px rgba(0,0,0,0.12);
+    animation: slideUp .28s ease;
+  }
+  .android-tooltip.open { display: block; }
+
+  /* TOOLTIP OVERLAY */
+  .tooltip-overlay { display:none; position:fixed; inset:0; background:rgba(30,30,30,.4); z-index:9997; }
+  .tooltip-overlay.open { display:block; }
+
+  /* NAV */
+  .nav-tabs { display:flex; background:var(--warm-white); border-bottom:1px solid #EDE7DF; position:sticky; top:0; z-index:100; box-shadow:0 1px 8px rgba(0,0,0,.04); }
+  .nav-tab { flex:1; padding:13px 4px; font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; font-weight:500; color:var(--light); text-align:center; cursor:pointer; border-bottom:2px solid transparent; transition:all .2s; background:none; border-top:none; border-left:none; border-right:none; font-family:'DM Sans',sans-serif; }
+  .nav-tab.active { color:var(--sage-dark); border-bottom-color:var(--sage); }
+
+  /* SECTIONS */
+  .section { display:none; animation:fadeIn .2s ease; }
+  .section.active { display:block; }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(4px); } to { opacity:1; transform:translateY(0); } }
+
+  /* SERVICES */
+  .wrap { padding:24px 18px 40px; }
+  .section-title { font-family:'Cormorant Garamond',serif; font-size:1.6rem; font-weight:400; margin-bottom:4px; }
+  .section-desc { font-size:.8rem; color:var(--mid); line-height:1.6; margin-bottom:20px; }
+  .category-label { font-size:.65rem; letter-spacing:.22em; text-transform:uppercase; color:var(--taupe); font-weight:500; margin:22px 0 10px; display:flex; align-items:center; gap:10px; }
+  .category-label::after { content:''; flex:1; height:1px; background:#EDE7DF; }
+  .service-card { background:var(--warm-white); border-radius:12px; padding:15px 16px; margin-bottom:8px; display:flex; align-items:center; cursor:pointer; border:1.5px solid #EDE7DF; transition:all .18s; gap:12px; }
+  .service-card.selected { border-color:var(--sage); background:#F1F6F0; }
+  .service-card:active { transform:scale(.99); }
+  .service-left { flex:1; min-width:0; }
+  .service-name { font-size:.88rem; font-weight:500; color:var(--charcoal); margin-bottom:2px; }
+  .service-meta { font-size:.73rem; color:var(--mid); }
+  .service-right { display:flex; align-items:center; gap:10px; flex-shrink:0; }
+  .service-price { font-family:'Cormorant Garamond',serif; font-size:1.15rem; font-weight:500; color:var(--sage-dark); }
+  .select-dot { width:20px; height:20px; border-radius:50%; border:1.5px solid #D0C9C2; display:flex; align-items:center; justify-content:center; transition:all .18s; flex-shrink:0; }
+  .service-card.selected .select-dot { background:var(--sage); border-color:var(--sage); }
+  .service-card.selected .select-dot::after { content:''; width:5px; height:9px; border:1.5px solid white; border-top:none; border-left:none; transform:rotate(45deg) translateY(-1px); display:block; }
+
+  /* BOOK */
+  .step-label { font-size:.65rem; letter-spacing:.2em; text-transform:uppercase; color:var(--taupe); font-weight:500; margin-bottom:10px; margin-top:22px; }
+  .step-label:first-child { margin-top:0; }
+  .selected-badge { background:#F1F6F0; border:1px solid var(--sage-light); border-radius:10px; padding:12px 14px; font-size:.82rem; color:var(--sage-dark); display:flex; align-items:center; gap:8px; }
+  .selected-badge.empty { background:#FAF7F4; border-color:#EDE7DF; color:var(--mid); }
+  .date-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:5px; }
+  .date-cell { display:flex; flex-direction:column; align-items:center; padding:9px 3px; border-radius:9px; cursor:pointer; border:1.5px solid #EDE7DF; background:var(--warm-white); transition:all .15s; }
+  .date-cell.sel { background:var(--sage); border-color:var(--sage); }
+  .d-label { font-size:.55rem; letter-spacing:.08em; text-transform:uppercase; color:var(--light); margin-bottom:3px; }
+  .d-num { font-size:.88rem; font-weight:500; color:var(--charcoal); }
+  .date-cell.sel .d-label, .date-cell.sel .d-num { color:white; }
+  .time-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:7px; }
+  .time-chip { padding:10px 4px; text-align:center; border-radius:9px; font-size:.78rem; font-weight:500; background:var(--warm-white); border:1.5px solid #EDE7DF; cursor:pointer; transition:all .15s; color:var(--charcoal); font-family:'DM Sans',sans-serif; }
+  .time-chip.sel { background:var(--sage); color:white; border-color:var(--sage); }
+  .time-chip.gone { opacity:.32; cursor:default; text-decoration:line-through; }
+  .input-group { margin-bottom:10px; }
+  .input-group label { display:block; font-size:.68rem; letter-spacing:.12em; text-transform:uppercase; color:var(--mid); margin-bottom:6px; }
+  .input-group input { width:100%; padding:12px 14px; background:var(--warm-white); border:1.5px solid #EDE7DF; border-radius:10px; font-size:.88rem; font-family:'DM Sans',sans-serif; color:var(--charcoal); outline:none; transition:border-color .2s; }
+  .input-group input:focus { border-color:var(--sage); }
+  .input-group input::placeholder { color:var(--light); }
+
+  /* BUTTONS */
+  .btn { width:100%; border:none; border-radius:12px; padding:16px; font-size:.82rem; font-family:'DM Sans',sans-serif; font-weight:500; letter-spacing:.1em; text-transform:uppercase; cursor:pointer; transition:all .18s; margin-top:18px; }
+  .btn-sage { background:var(--sage); color:white; }
+  .btn-sage:active { background:var(--sage-dark); }
+  .btn-wa { background:#25D366; color:white; display:flex; align-items:center; justify-content:center; gap:9px; }
+  .btn-outline { background:transparent; color:var(--mid); border:1.5px solid #DDD; margin-top:10px; }
+  .gap-note { font-size:.74rem; color:var(--light); text-align:center; margin-top:10px; line-height:1.5; }
+
+  /* GALLERY */
+  .gallery-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:5px; }
+  .g-item { aspect-ratio:1; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:.82rem; }
+  .g1{background:linear-gradient(135deg,#F0E4DC,#E8D5C9);color:var(--taupe)}
+  .g2{background:linear-gradient(135deg,#C4D4C1,#D8E8D5);color:var(--sage-dark)}
+  .g3{background:linear-gradient(135deg,#EDE0D8,#E8D5C9);color:var(--taupe)}
+  .g4{background:linear-gradient(135deg,#F5EFE8,#EDE0D4);color:var(--taupe)}
+  .g5{background:linear-gradient(135deg,#D8E8D5,#C4D4C1);color:var(--sage-dark)}
+  .g6{background:linear-gradient(135deg,#F0E8E0,#E8D5C9);color:var(--taupe)}
+  .g7{background:linear-gradient(135deg,#EAE0DA,#E0D0C8);color:var(--taupe)}
+  .g8{background:linear-gradient(135deg,#C8D8C5,#B8CCB5);color:var(--sage-dark)}
+  .g9{background:linear-gradient(135deg,#F2EBE4,#E8DDD4);color:#B09080}
+
+  /* CONTACT */
+  .contact-card { background:var(--warm-white); border-radius:14px; padding:18px; margin-bottom:10px; display:flex; align-items:center; gap:14px; text-decoration:none; color:var(--charcoal); border:1.5px solid #EDE7DF; }
+  .c-icon { width:44px; height:44px; border-radius:11px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .c-green{background:#DCF8C6} .c-pink{background:var(--blush)} .c-sage{background:var(--sage-light)} .c-yellow{background:#FFF3D0}
+  .c-title { font-size:.88rem; font-weight:500; margin-bottom:2px; }
+  .c-sub { font-size:.75rem; color:var(--mid); }
+  .hours-card { background:var(--warm-white); border-radius:14px; padding:18px; border:1.5px solid #EDE7DF; margin-top:4px; }
+
+  /* MODAL */
+  .overlay { display:none; position:fixed; inset:0; background:rgba(30,30,30,.5); z-index:999; align-items:flex-end; }
+  .overlay.open { display:flex; animation:fadeBg .2s ease; }
+  @keyframes fadeBg { from { background:rgba(30,30,30,0); } }
+  .sheet { background:var(--warm-white); border-radius:22px 22px 0 0; padding:24px 22px 44px; width:100%; animation:slideUp .28s ease; }
+  .sheet-handle { width:34px; height:4px; background:#DDD; border-radius:2px; margin:0 auto 20px; }
+  .sheet-title { font-family:'Cormorant Garamond',serif; font-size:1.45rem; font-weight:400; text-align:center; margin-bottom:18px; }
+  .confirm-row { display:flex; justify-content:space-between; padding:9px 0; border-bottom:1px solid #EDE7DF; font-size:.83rem; }
+  .confirm-row:last-of-type { border-bottom:none; }
+  .c-lbl { color:var(--mid); }
+  .c-val { font-weight:500; text-align:right; max-width:60%; }
+
+  /* TOAST */
+  .toast { position:fixed; bottom:28px; left:50%; transform:translateX(-50%) translateY(80px); background:var(--charcoal); color:white; padding:11px 22px; border-radius:100px; font-size:.8rem; z-index:9999; transition:transform .28s ease; white-space:nowrap; pointer-events:none; }
+  .toast.show { transform:translateX(-50%) translateY(0); }
+  .mt { margin-top:16px; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="logo-ring">
+    <svg width="76" height="76" viewBox="0 0 76 76">
+      <circle cx="38" cy="38" r="34" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" fill="none"/>
+      <text x="38" y="37" text-anchor="middle" class="logo-text">lady</text>
+      <text x="38" y="53" text-anchor="middle" class="logo-text">J</text>
+    </svg>
+  </div>
+  <h1>Lady J Nail & Beauty</h1>
+  <p class="hero-sub">Wandsworth Town · London</p>
+  <div class="hero-pills">
+    <div class="pill rating-pill">
+      <svg viewBox="0 0 12 12"><path d="M6 1l1.3 2.6L10 4l-2 2 .5 2.8L6 7.5 3.5 8.8 4 6 2 4l2.7-.4z" fill="#E8A020"/></svg>
+      4.9 · 4,480 reviews
+    </div>
+    <div class="pill">
+      <svg viewBox="0 0 12 12" fill="none"><path d="M6 1C3.8 1 2 2.8 2 5c0 3 4 7 4 7s4-4 4-7c0-2.2-1.8-4-4-4z" stroke="currentColor" stroke-width="1.2"/><circle cx="6" cy="5" r="1.5" stroke="currentColor" stroke-width="1.2"/></svg>
+      505 Old York Road
+    </div>
+  </div>
+</div>
+
+<!-- INSTALL BANNER -->
+<div class="install-bar" id="installBar">
+  <div class="install-bar-left">
+    <div class="install-icon">
+      <svg viewBox="0 0 20 20" fill="none">
+        <circle cx="10" cy="10" r="9" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+        <text x="10" y="13" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-style="italic" font-size="8" fill="white">lJ</text>
+      </svg>
+    </div>
+    <div class="install-text">
+      <strong>Add to Home Screen</strong>
+      <span>Use as an app — no App Store needed</span>
+    </div>
+  </div>
+  <button class="install-btn" onclick="showInstall()">Install</button>
+  <button class="install-close" onclick="dismissInstall()">✕</button>
+</div>
+
+<!-- TOOLTIP OVERLAY -->
+<div class="tooltip-overlay" id="tooltipOverlay" onclick="closeTooltips()"></div>
+
+<!-- iOS TOOLTIP -->
+<div class="ios-tooltip" id="iosTooltip">
+  <div class="tooltip-handle"></div>
+  <div class="tooltip-title">Add to your Home Screen</div>
+  <div class="tooltip-sub">Follow these steps in Safari to install Lady J as an app on your iPhone.</div>
+  <div class="tooltip-step">
+    <div class="step-num">1</div>
+    <div class="step-text">
+      Tap the <strong>Share button</strong> at the bottom of your browser
+      <span>The box with an arrow pointing up</span>
+    </div>
+  </div>
+  <div class="tooltip-step">
+    <div class="step-num">2</div>
+    <div class="step-text">
+      Scroll down and tap <strong>"Add to Home Screen"</strong>
+      <span>You may need to scroll the menu</span>
+    </div>
+  </div>
+  <div class="tooltip-step">
+    <div class="step-num">3</div>
+    <div class="step-text">
+      Tap <strong>"Add"</strong> in the top right
+      <span>Lady J will appear on your home screen</span>
+    </div>
+  </div>
+  <button class="tooltip-close" onclick="closeTooltips()">Got it</button>
+</div>
+
+<!-- ANDROID TOOLTIP -->
+<div class="android-tooltip" id="androidTooltip">
+  <div class="tooltip-handle"></div>
+  <div class="tooltip-title">Add to your Home Screen</div>
+  <div class="tooltip-sub">Follow these steps in Chrome to install Lady J as an app on your Android.</div>
+  <div class="tooltip-step">
+    <div class="step-num">1</div>
+    <div class="step-text">
+      Tap the <strong>three dots menu</strong> in the top right
+      <span>⋮ in the corner of Chrome</span>
+    </div>
+  </div>
+  <div class="tooltip-step">
+    <div class="step-num">2</div>
+    <div class="step-text">
+      Tap <strong>"Add to Home screen"</strong>
+      <span>Or "Install app" if you see that option</span>
+    </div>
+  </div>
+  <div class="tooltip-step">
+    <div class="step-num">3</div>
+    <div class="step-text">
+      Tap <strong>"Add"</strong> to confirm
+      <span>Lady J will appear on your home screen</span>
+    </div>
+  </div>
+  <button class="tooltip-close" onclick="closeTooltips()">Got it</button>
+</div>
+
+<!-- NAV -->
+<div class="nav-tabs">
+  <button class="nav-tab active" onclick="showTab('services',this)">Services</button>
+  <button class="nav-tab" onclick="showTab('book',this)">Book</button>
+  <button class="nav-tab" onclick="showTab('gallery',this)">Gallery</button>
+  <button class="nav-tab" onclick="showTab('contact',this)">Contact</button>
+</div>
+
+<!-- SERVICES -->
+<div id="services" class="section active">
+<div class="wrap">
+  <h2 class="section-title">Services</h2>
+  <p class="section-desc">Select a treatment below, then tap Book to schedule.</p>
+
+  <div class="category-label">BIAB — Builder Gel</div>
+  <div class="service-card" onclick="pick(this,'BIAB Manicure','£47','45 min')">
+    <div class="service-left"><div class="service-name">BIAB Manicure</div><div class="service-meta">45 min · Strengthening overlay</div></div>
+    <div class="service-right"><div class="service-price">£47</div><div class="select-dot"></div></div>
+  </div>
+  <div class="service-card" onclick="pick(this,'BIAB Infill','£47','45 min')">
+    <div class="service-left"><div class="service-name">BIAB Infill</div><div class="service-meta">45 min · Maintenance refill</div></div>
+    <div class="service-right"><div class="service-price">£47</div><div class="select-dot"></div></div>
+  </div>
+  <div class="service-card" onclick="pick(this,'BIAB Infill + Shellac','£52','1 hr')">
+    <div class="service-left"><div class="service-name">BIAB Infill + Shellac</div><div class="service-meta">1 hr · Infill with gel colour</div></div>
+    <div class="service-right"><div class="service-price">£52</div><div class="select-dot"></div></div>
+  </div>
+  <div class="service-card" onclick="pick(this,'BIAB Mani + Shellac','£52','45 min')">
+    <div class="service-left"><div class="service-name">BIAB Mani + Shellac</div><div class="service-meta">45 min · Builder + gel colour</div></div>
+    <div class="service-right"><div class="service-price">£52</div><div class="select-dot"></div></div>
+  </div>
+  <div class="service-card" onclick="pick(this,'BIAB Mani + Removal','£52','1 hr')">
+    <div class="service-left"><div class="service-name">BIAB Mani + Removal</div><div class="service-meta">1 hr · Includes soak-off</div></div>
+    <div class="service-right"><div class="service-price">£52</div><div class="select-dot"></div></div>
+  </div>
+  <div class="service-card" onclick="pick(this,'BIAB + Shellac + Removal','£57','1 hr')">
+    <div class="service-left"><div class="service-name">BIAB + Shellac + Removal</div><div class="service-meta">1 hr · Full set with removal</div></div>
+    <div class="service-right"><div class="service-price">£57</div><div class="select-dot"></div></div>
+  </div>
+  <div class="service-card" onclick="pick(this,'BIAB Extension','£62','1 hr')">
+    <div class="service-left"><div class="service-name">BIAB Extension</div><div class="service-meta">1 hr · Added length & shape</div></div>
+    <div class="service-right"><div class="service-price">£62</div><div class="select-dot"></div></div>
+  </div>
+
+  <div class="category-label">Shellac Packages</div>
+  <div class="service-card" onclick="pick(this,'Shellac Mani & Pedi','£82','1 hr 15 min')">
+    <div class="service-left"><div class="service-name">Shellac Mani & Pedi</div><div class="service-meta">1 hr 15 min · Hands & feet</div></div>
+    <div class="service-right"><div class="service-price">£82</div><div class="select-dot"></div></div>
+  </div>
+  <div class="service-card" onclick="pick(this,'Shellac Mani & Pedi + Removal','£82','1 hr 30 min')">
+    <div class="service-left"><div class="service-name">Shellac Mani & Pedi + Removal</div><div class="service-meta">1 hr 30 min</div></div>
+    <div class="service-right"><div class="service-price">£82</div><div class="select-dot"></div></div>
+  </div>
+  <div class="service-card" onclick="pick(this,'BIAB Mani & Shellac Pedi','£92','1 hr 45 min')">
+    <div class="service-left"><div class="service-name">BIAB Mani & Shellac Pedi</div><div class="service-meta">1 hr 45 min</div></div>
+    <div class="service-right"><div class="service-price">£92</div><div class="select-dot"></div></div>
+  </div>
+  <div class="service-card" onclick="pick(this,'Luxury Shellac Mani & Pedi','£120','2 hr')">
+    <div class="service-left"><div class="service-name">Luxury Shellac Mani & Pedi</div><div class="service-meta">2 hr · Premium experience</div></div>
+    <div class="service-right"><div class="service-price">£120</div><div class="select-dot"></div></div>
+  </div>
+
+  <div class="category-label">Eyelash Extensions</div>
+  <div class="service-card" onclick="pick(this,'Classic Semi-Permanent Lashes','£85','1 hr 30 min')">
+    <div class="service-left"><div class="service-name">Classic Semi-Permanent</div><div class="service-meta">1 hr 30 min · Natural look</div></div>
+    <div class="service-right"><div class="service-price">£85</div><div class="select-dot"></div></div>
+  </div>
+  <div class="service-card" onclick="pick(this,'Hybrid Lashes','£85','1 hr 30 min')">
+    <div class="service-left"><div class="service-name">Hybrid Lashes</div><div class="service-meta">1 hr 30 min · Mixed style</div></div>
+    <div class="service-right"><div class="service-price">£85</div><div class="select-dot"></div></div>
+  </div>
+  <div class="service-card" onclick="pick(this,'Volume Lashes','£75','1 hr 30 min')">
+    <div class="service-left"><div class="service-name">Volume Lashes</div><div class="service-meta">1 hr 30 min · Full & dramatic</div></div>
+    <div class="service-right"><div class="service-price">£75</div><div class="select-dot"></div></div>
+  </div>
+  <div class="service-card" onclick="pick(this,'Mega Volume Lashes','£110','1 hr 30 min')">
+    <div class="service-left"><div class="service-name">Mega Volume Lashes</div><div class="service-meta">1 hr 30 min · Maximum drama</div></div>
+    <div class="service-right"><div class="service-price">£110</div><div class="select-dot"></div></div>
+  </div>
+  <div class="service-card" onclick="pick(this,'Volume Lash Infill','£55','1 hr 15 min')">
+    <div class="service-left"><div class="service-name">Volume Infill</div><div class="service-meta">1 hr 15 min</div></div>
+    <div class="service-right"><div class="service-price">£55</div><div class="select-dot"></div></div>
+  </div>
+  <div class="service-card" onclick="pick(this,'Classic Lash Infill','£65','1 hr 15 min')">
+    <div class="service-left"><div class="service-name">Classic Infill</div><div class="service-meta">1 hr 15 min</div></div>
+    <div class="service-right"><div class="service-price">£65</div><div class="select-dot"></div></div>
+  </div>
+  <div class="service-card" onclick="pick(this,'Eyelash Removal','£25','20 min')">
+    <div class="service-left"><div class="service-name">Eyelash Removal</div><div class="service-meta">20 min · Safe take-off</div></div>
+    <div class="service-right"><div class="service-price">£25</div><div class="select-dot"></div></div>
+  </div>
+
+  <div class="category-label">Facials — Dermalogica</div>
+  <div class="service-card" onclick="pick(this,'Deep Cleanse Facial','£54','1 hr appt')">
+    <div class="service-left"><div class="service-name">Deep Cleanse Facial</div><div class="service-meta">45 min treatment · Dermalogica</div></div>
+    <div class="service-right"><div class="service-price">£54</div><div class="select-dot"></div></div>
+  </div>
+  <div class="service-card" onclick="pick(this,'Pro Facial','£63','1 hr 20 min appt')">
+    <div class="service-left"><div class="service-name">Pro Facial</div><div class="service-meta">60 min treatment · Dermalogica</div></div>
+    <div class="service-right"><div class="service-price">£63</div><div class="select-dot"></div></div>
+  </div>
+
+  <div class="category-label">Waxing & Brows</div>
+  <div class="service-card" onclick="pick(this,'Ladies\' Waxing','from £14','varies')">
+    <div class="service-left"><div class="service-name">Ladies' Waxing</div><div class="service-meta">Lycon wax · Multiple areas available</div></div>
+    <div class="service-right"><div class="service-price">£14+</div><div class="select-dot"></div></div>
+  </div>
+  <div class="service-card" onclick="pick(this,'Eyebrows & Eyelashes','from £12','varies')">
+    <div class="service-left"><div class="service-name">Eyebrows & Eyelashes</div><div class="service-meta">Tinting, shaping & threading</div></div>
+    <div class="service-right"><div class="service-price">£12+</div><div class="select-dot"></div></div>
+  </div>
+  <div class="service-card" onclick="pick(this,'Soft Gel Removal','£15','20 min')">
+    <div class="service-left"><div class="service-name">Soft Gel Removal</div><div class="service-meta">20 min · Gentle soak-off</div></div>
+    <div class="service-right"><div class="service-price">£15</div><div class="select-dot"></div></div>
+  </div>
+
+  <button class="btn btn-sage" onclick="goBook()">Continue to Book →</button>
+</div>
+</div>
+
+<!-- BOOK -->
+<div id="book" class="section">
+<div class="wrap">
+  <h2 class="section-title">Book</h2>
+  <p class="section-desc">Pick your date & time, then leave your details.</p>
+
+  <div class="step-label">Selected Service</div>
+  <div class="selected-badge empty" id="badge">← Choose a service first</div>
+
+  <div class="step-label">Date</div>
+  <div class="date-grid" id="dateGrid"></div>
+
+  <div class="step-label">Time</div>
+  <div class="time-grid" id="timeGrid"></div>
+
+  <div class="step-label mt">Your Details</div>
+  <div class="input-group">
+    <label>Full Name</label>
+    <input type="text" id="iName" placeholder="e.g. Sarah Williams">
+  </div>
+  <div class="input-group">
+    <label>Phone Number</label>
+    <input type="tel" id="iPhone" placeholder="+44 7000 000 000">
+  </div>
+  <div class="input-group">
+    <label>Notes (optional)</label>
+    <input type="text" id="iNotes" placeholder="Colour preference, nail shape…">
+  </div>
+
+  <button class="btn btn-sage" onclick="review()">Review Booking</button>
+  <p class="gap-note">Confirmation sent via WhatsApp · OPI · CND · The Gel Bottle</p>
+</div>
+</div>
+
+<!-- GALLERY -->
+<div id="gallery" class="section">
+<div class="wrap">
+  <h2 class="section-title">Gallery</h2>
+  <p class="section-desc">Recent work from the salon. Follow @ladyjnailbeauty for more.</p>
+  <div class="gallery-grid">
+    <div class="g-item g1">Nude Gel</div>
+    <div class="g-item g2">Sage Art</div>
+    <div class="g-item g3">Blush Tips</div>
+    <div class="g-item g4">Floral</div>
+    <div class="g-item g5">Abstract</div>
+    <div class="g-item g6">French</div>
+    <div class="g-item g7">Ombré</div>
+    <div class="g-item g8">Chrome</div>
+    <div class="g-item g9">Glitter</div>
+  </div>
+  <p class="gap-note" style="margin-top:16px">Using OPI · CND · The Gel Bottle · SNS · Lycon</p>
+</div>
+</div>
+
+<!-- CONTACT -->
+<div id="contact" class="section">
+<div class="wrap">
+  <h2 class="section-title">Contact</h2>
+  <p class="section-desc">Right next door to Wandsworth Town station.</p>
+
+  <a class="contact-card" href="https://wa.me/447899739723" target="_blank">
+    <div class="c-icon c-green">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+        <path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.37 5.07L2 22l5.07-1.37A9.93 9.93 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2z" fill="#25D366"/>
+        <path d="M16.72 14.44c-.26-.13-1.54-.76-1.78-.85-.24-.09-.41-.13-.58.13-.17.26-.67.85-.82 1.02-.15.17-.3.19-.56.06-.26-.13-1.1-.4-2.1-1.29-.78-.69-1.3-1.54-1.45-1.8-.15-.26-.02-.4.11-.53.12-.12.26-.3.39-.45.13-.15.17-.26.26-.43.09-.17.04-.32-.02-.45-.06-.13-.58-1.41-.8-1.93-.21-.5-.42-.43-.58-.44-.15-.01-.32-.01-.5-.01-.17 0-.45.06-.69.32-.24.26-.91.88-.91 2.16 0 1.28.93 2.51 1.06 2.68.13.17 1.83 2.8 4.43 3.92.62.27 1.1.43 1.48.55.62.2 1.19.17 1.63.1.5-.08 1.54-.63 1.76-1.23.22-.6.22-1.12.15-1.23-.06-.11-.23-.17-.49-.3z" fill="white"/>
+      </svg>
+    </div>
+    <div><div class="c-title">WhatsApp</div><div class="c-sub">+44 7899 739723 · Tap to message</div></div>
+  </a>
+
+  <a class="contact-card" href="https://www.instagram.com/ladyjnailbeauty" target="_blank">
+    <div class="c-icon c-pink">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+        <rect x="2" y="2" width="20" height="20" rx="5" stroke="#C96A9A" stroke-width="1.8"/>
+        <circle cx="12" cy="12" r="4.5" stroke="#C96A9A" stroke-width="1.8"/>
+        <circle cx="17.5" cy="6.5" r="1" fill="#C96A9A"/>
+      </svg>
+    </div>
+    <div><div class="c-title">@ladyjnailbeauty</div><div class="c-sub">172 posts · 738 followers</div></div>
+  </a>
+
+  <a class="contact-card" href="https://www.treatwell.co.uk/place/lady-j-nail-beauty/" target="_blank">
+    <div class="c-icon c-sage">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+        <rect x="3" y="4" width="18" height="16" rx="3" stroke="#5C7A58" stroke-width="1.8"/>
+        <path d="M8 2v4M16 2v4M3 10h18" stroke="#5C7A58" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div><div class="c-title">Book on Treatwell</div><div class="c-sub">4.9 ★ · 4,480 reviews · Instant booking</div></div>
+  </a>
+
+  <a class="contact-card" href="https://maps.google.com/?q=505+Old+York+Road,Wandsworth,London,SW18+1TF" target="_blank">
+    <div class="c-icon c-yellow">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="#C8A020" stroke-width="1.8"/>
+        <circle cx="12" cy="9" r="2.5" stroke="#C8A020" stroke-width="1.8"/>
+      </svg>
+    </div>
+    <div><div class="c-title">505 Old York Road</div><div class="c-sub">Wandsworth, London SW18 1TF</div></div>
+  </a>
+
+  <div class="hours-card">
+    <div class="step-label" style="margin:0 0 12px">Opening Hours</div>
+    <div class="confirm-row"><span class="c-lbl">Monday – Friday</span><span class="c-val">10:00 – 20:00</span></div>
+    <div class="confirm-row"><span class="c-lbl">Saturday</span><span class="c-val">10:00 – 19:00</span></div>
+    <div class="confirm-row"><span class="c-lbl">Sunday</span><span class="c-val">10:00 – 19:00</span></div>
+  </div>
+</div>
+</div>
+
+<!-- BOOKING MODAL -->
+<div class="overlay" id="overlay" onclick="closeModal(event)">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-title">Confirm Booking</div>
+    <div id="confirmRows"></div>
+    <button class="btn btn-wa" onclick="sendWA()">
+      <svg width="18" height="18" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.37 5.07L2 22l5.07-1.37A9.93 9.93 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2z" fill="white"/><path d="M16.72 14.44c-.26-.13-1.54-.76-1.78-.85-.24-.09-.41-.13-.58.13-.17.26-.67.85-.82 1.02-.15.17-.3.19-.56.06-.26-.13-1.1-.4-2.1-1.29-.78-.69-1.3-1.54-1.45-1.8-.15-.26-.02-.4.11-.53.12-.12.26-.3.39-.45.13-.15.17-.26.26-.43.09-.17.04-.32-.02-.45-.06-.13-.58-1.41-.8-1.93-.21-.5-.42-.43-.58-.44-.15-.01-.32-.01-.5-.01-.17 0-.45.06-.69.32-.24.26-.91.88-.91 2.16 0 1.28.93 2.51 1.06 2.68.13.17 1.83 2.8 4.43 3.92.62.27 1.1.43 1.48.55.62.2 1.19.17 1.63.1.5-.08 1.54-.63 1.76-1.23.22-.6.22-1.12.15-1.23-.06-.11-.23-.17-.49-.3z" fill="#25D366"/></svg>
+      Confirm via WhatsApp
+    </button>
+    <button class="btn btn-outline" onclick="closeOverlay()">Edit Details</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  // ── REAL WHATSAPP NUMBER ──
+  const WA_NUMBER = '447899739723';
+
+  // ── STATE ──
+  let chosen = { name:'', price:'', duration:'' };
+  let selDate = '', selTime = '';
+
+  // ── TABS ──
+  function showTab(id, el) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    el.classList.add('active');
+    updateBadge();
+    window.scrollTo(0,0);
+  }
+
+  // ── SERVICES ──
+  function pick(card, name, price, dur) {
+    document.querySelectorAll('.service-card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    chosen = { name, price, duration: dur };
+  }
+
+  function updateBadge() {
+    const b = document.getElementById('badge');
+    if (chosen.name) {
+      b.classList.remove('empty');
+      b.textContent = '✓ ' + chosen.name + ' · ' + chosen.price + ' · ' + chosen.duration;
+    } else {
+      b.classList.add('empty');
+      b.textContent = '← Choose a service first';
+    }
+  }
+
+  function goBook() {
+    showTab('book', document.querySelectorAll('.nav-tab')[1]);
+  }
+
+  // ── DATES ──
+  const DAYS = ['Su','Mo','Tu','We','Th','Fr','Sa'];
+  const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const now = new Date();
+
+  function buildDates() {
+    const grid = document.getElementById('dateGrid');
+    grid.innerHTML = '';
+    for (let i = 0; i < 7; i++) {
+      const d = new Date(now); d.setDate(now.getDate() + i);
+      const dateStr = d.getDate() + ' ' + MONTHS[d.getMonth()];
+      const lbl = i === 0 ? 'Today' : DAYS[d.getDay()];
+      const cell = document.createElement('div');
+      cell.className = 'date-cell';
+      cell.innerHTML = '<span class="d-label">' + lbl + '</span><span class="d-num">' + d.getDate() + '</span>';
+      cell.onclick = () => {
+        document.querySelectorAll('.date-cell').forEach(c => c.classList.remove('sel'));
+        cell.classList.add('sel');
+        selDate = dateStr;
+      };
+      grid.appendChild(cell);
+    }
+  }
+
+  // ── TIMES ──
+  const TIMES = [
+    {t:'10:00',ok:true},{t:'10:30',ok:true},{t:'11:00',ok:false},{t:'11:30',ok:true},
+    {t:'12:00',ok:false},{t:'12:30',ok:true},{t:'13:00',ok:true},{t:'14:00',ok:false},
+    {t:'14:30',ok:true},{t:'15:00',ok:true},{t:'15:30',ok:true},{t:'16:00',ok:true},
+    {t:'16:30',ok:true},{t:'17:00',ok:false},{t:'17:30',ok:true},{t:'18:00',ok:true},
+  ];
+
+  function buildTimes() {
+    const grid = document.getElementById('timeGrid');
+    grid.innerHTML = '';
+    TIMES.forEach(({t, ok}) => {
+      const chip = document.createElement('div');
+      chip.className = 'time-chip' + (!ok ? ' gone' : '');
+      chip.textContent = t;
+      if (ok) chip.onclick = () => {
+        document.querySelectorAll('.time-chip').forEach(c => c.classList.remove('sel'));
+        chip.classList.add('sel');
+        selTime = t;
+      };
+      grid.appendChild(chip);
+    });
+  }
+
+  // ── BOOKING ──
+  function review() {
+    if (!chosen.name) { showToast('Please select a service first'); return; }
+    if (!selDate) { showToast('Please choose a date'); return; }
+    if (!selTime) { showToast('Please choose a time'); return; }
+    const name = document.getElementById('iName').value.trim();
+    const phone = document.getElementById('iPhone').value.trim();
+    if (!name) { showToast('Please enter your name'); return; }
+    if (!phone) { showToast('Please enter your phone number'); return; }
+    const notes = document.getElementById('iNotes').value.trim();
+    const rows = [
+      ['Service', chosen.name], ['Price', chosen.price], ['Duration', chosen.duration],
+      ['Date', selDate], ['Time', selTime], ['Name', name], ['Phone', phone],
+      ...(notes ? [['Notes', notes]] : []),
+    ];
+    document.getElementById('confirmRows').innerHTML = rows.map(([l,v]) =>
+      '<div class="confirm-row"><span class="c-lbl">' + l + '</span><span class="c-val">' + v + '</span></div>'
+    ).join('');
+    document.getElementById('overlay').classList.add('open');
+  }
+
+  function sendWA() {
+    const name = document.getElementById('iName').value.trim();
+    const phone = document.getElementById('iPhone').value.trim();
+    const notes = document.getElementById('iNotes').value.trim();
+    const msg = '🧪 TEST BOOKING — DEMO APP (ignore if not expecting this)\n\nHi Lady J! I\'d like to book:\n\nService: ' + chosen.name + ' (' + chosen.price + ')\nDate: ' + selDate + '\nTime: ' + selTime + '\nName: ' + name + '\nPhone: ' + phone + (notes ? '\nNotes: ' + notes : '');
+    window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg), '_blank');
+    closeOverlay();
+    showToast('Opening WhatsApp…');
+  }
+
+  function closeModal(e) { if (e.target === document.getElementById('overlay')) closeOverlay(); }
+  function closeOverlay() { document.getElementById('overlay').classList.remove('open'); }
+
+  // ── INSTALL BANNER ──
+  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  const isAndroid = /android/i.test(navigator.userAgent);
+  const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+
+  // Hide install bar if already installed as app
+  if (isStandalone) {
+    document.getElementById('installBar').style.display = 'none';
+  }
+
+  function showInstall() {
+    document.getElementById('tooltipOverlay').classList.add('open');
+    if (isIOS) {
+      document.getElementById('iosTooltip').classList.add('open');
+    } else {
+      // Android or desktop — show Android instructions as default
+      document.getElementById('androidTooltip').classList.add('open');
+    }
+  }
+
+  function closeTooltips() {
+    document.getElementById('tooltipOverlay').classList.remove('open');
+    document.getElementById('iosTooltip').classList.remove('open');
+    document.getElementById('androidTooltip').classList.remove('open');
+  }
+
+  function dismissInstall() {
+    document.getElementById('installBar').style.display = 'none';
+  }
+
+  // ── TOAST ──
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg; t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2400);
+  }
+
+  buildDates();
+  buildTimes();
+</script>
+</body>
+</html>
